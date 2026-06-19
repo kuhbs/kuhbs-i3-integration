@@ -1,0 +1,216 @@
+### KUHBS I3 INTEGRATION ###
+
+
+
+### Basic i3 settings
+
+# $mod is the main i3 modifier key. Mod4 is usually the Super/Windows key
+set $mod Mod4
+
+# Font used by i3 itself, mainly for window titles and mode prompts
+font pango:DejaVu Sans Mono 12
+
+# Use thin colored borders instead of full titlebars on new windows
+# This keeps the Qubes label color but hides the [vm-name] window title bar
+# (except for tabbed and stacked)
+for_window [class="^.*"] border pixel 0
+
+# Tiled windows get a simple 2 pixel border instead of a titlebar
+default_border pixel 2
+
+# Floating windows also get a simple 2 pixel border instead of a titlebar
+default_floating_border pixel 2
+
+# New containers default to tabbed layout unless a rule changes it
+workspace_layout tabbed
+
+# Hold Super and drag with the mouse to move or resize floating windows
+floating_modifier $mod
+
+
+
+### Workspaces
+
+## Switching workspaces
+
+# Switch using the super and a number key
+bindsym $mod+1 workspace "1|AIR"
+bindsym $mod+2 workspace "2|SURF"
+bindsym $mod+3 workspace "3|CMD"
+bindsym $mod+4 workspace "4|CODE"
+bindsym $mod+5 workspace "5"
+bindsym $mod+6 workspace "6"
+bindsym $mod+7 workspace "7"
+bindsym $mod+8 workspace "8|BROWSE"
+bindsym $mod+9 workspace "9|MAIL"
+bindsym $mod+0 workspace "10|CHAT"
+
+# Switch using the super and a F1-12 key
+bindsym $mod+F1 workspace "11|KUHBS"
+bindsym $mod+F2 workspace "12|SNITCH"
+bindsym $mod+F3 workspace "13|MEDIA"
+bindsym $mod+F4 workspace "14"
+bindsym $mod+F5 workspace "15"
+bindsym $mod+F6 workspace "16"
+bindsym $mod+F7 workspace "17"
+bindsym $mod+F8 workspace "18"
+bindsym $mod+F9 workspace "19|AI"
+bindsym $mod+F10 workspace "20|AI"
+bindsym $mod+F11 workspace "21|AI"
+bindsym $mod+F12 workspace "22|AI"
+
+
+## Moving windows to anther workspace
+
+# Super+Shift plus a number moves the focused window to workspace 1-10
+bindsym $mod+Shift+exclam move workspace "1|AIR"
+bindsym $mod+Shift+at move workspace "2|SURF"
+bindsym $mod+Shift+numbersign move workspace "3|CMD"
+bindsym $mod+Shift+dollar move workspace "4|CODE"
+bindsym $mod+Shift+percent move workspace "5"
+bindsym $mod+Shift+asciicircum move workspace "6"
+bindsym $mod+Shift+ampersand move workspace "7"
+bindsym $mod+Shift+asterisk move workspace "8|BROWSE"
+bindsym $mod+Shift+parenleft move workspace "9|MAIL"
+bindsym $mod+Shift+parenright move workspace "10|CHAT"
+
+# Super+Shift plus a function key moves the focused window workspaces 11-22
+bindsym $mod+Shift+F1 move workspace "11|KUHBS"
+bindsym $mod+Shift+F2 move workspace "12|SNITCH"
+bindsym $mod+Shift+F3 move workspace "13|MEDIA"
+bindsym $mod+Shift+F4 move workspace "14"
+bindsym $mod+Shift+F5 move workspace "15"
+bindsym $mod+Shift+F6 move workspace "16"
+bindsym $mod+Shift+F7 move workspace "17"
+bindsym $mod+Shift+F8 move workspace "18"
+bindsym $mod+Shift+F9 move workspace "19|AI"
+bindsym $mod+Shift+F10 move workspace "20|AI"
+bindsym $mod+Shift+F11 move workspace "21|AI"
+bindsym $mod+Shift+F12 move workspace "22|AI"
+
+
+## Window-to-workspace assignment rules
+
+# NOTE: to find a window class, run xprop, click the window, and read WM_CLASS
+
+# All kuhbs operation windows should spawn on workspace 11|KUHBS
+# kuhbs sets this title prefix on setup, hook, and other visible operation windows
+assign [class="kuhbs"] "11|KUHBS"
+for_window [title="^KUHBS: "] move to workspace "11|KUHBS"
+# All terminals of tpl- VMs are for "11|KUHBS"
+for_window [title="^tpl-.*: "] move to workspace "11|KUHBS"
+# Make all kuhbs terminal floating
+for_window [title="^KUHBS: "] floating enable
+
+# Keep Tor Browser floating so it can choose its own window size. This helps
+# avoid changing its fingerprint by forcing a tiled/maximized size
+for_window [title="Tor Browser"] floating enable
+
+
+
+### Window focus, movement, and layout
+
+# Focus windows with vim-style directions: left/down/up/right
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+a focus parent
+
+# Move windows with Super+Shift and vim-style directions
+bindsym $mod+Shift+H move left
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+K move up
+bindsym $mod+Shift+L move right
+
+# Common window actions
+bindsym $mod+c kill
+bindsym $mod+t floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+f fullscreen
+
+# Layout controls: default/tabbed layout and manual split direction
+bindsym $mod+e layout default
+bindsym $mod+w layout tabbed
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# Resize mode: press Super+r, resize, then Enter or Escape to leave the mode
+bindsym $mod+r mode "resize"
+mode "resize" {
+    bindsym j resize shrink left 10 px or 10 ppt
+    bindsym Shift+J resize grow left 10 px or 10 ppt
+    bindsym k resize shrink down 10 px or 10 ppt
+    bindsym Shift+K resize grow down 10 px or 10 ppt
+    bindsym l resize shrink up 10 px or 10 ppt
+    bindsym Shift+L resize grow up 10 px or 10 ppt
+    bindsym semicolon resize shrink right 10 px or 10 ppt
+    bindsym Shift+colon resize grow right 10 px or 10 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Restart reloads i3 after config changes. Exit closes the i3 session
+bindsym $mod+Shift+R restart
+bindsym $mod+Shift+Q exit
+
+
+
+### Kuhbs and dom0 launchers
+
+# Shutdown the kuh behind the focused window
+bindsym $mod+Shift+C      exec --no-startup-id /home/user/.config/i3/kuhbs-integration/i3-shutdown.sh
+# Shutdown all qubes except the network path needed for KUHBS upgrades
+bindsym $mod+Mod1+Shift+C exec --no-startup-id /usr/bin/qvm-shutdown --all --exclude ndp-kuhbs-net-gateway --exclude ndp-kuhbs-net-nic
+# Better copy and then CRTL + Shift + c
+bindsym $mod+m            exec --no-startup-id /home/user/.config/i3/kuhbs-integration/i3-copy.sh
+# Better CRTL + Shift + v and then paste
+bindsym $mod+Shift+m      exec --no-startup-id /home/user/.config/i3/kuhbs-integration/i3-paste.sh
+# Open a terminal in dom0
+bindsym $mod+Return       exec --no-startup-id /usr/bin/kuhbs terminal dom0
+# Open a user terminal in the focused windows kuh
+bindsym $mod+Shift+Return exec --no-startup-id /home/user/.config/i3/kuhbs-integration/i3-kuhbs-terminal.sh user
+# Open a root terminal in the focused windows kuh
+bindsym $mod+Shift+Mod1+Return exec --no-startup-id /home/user/.config/i3/kuhbs-integration/i3-kuhbs-terminal.sh root
+# Start application launcher
+bindsym $mod+p            exec --no-startup-id /home/user/.config/i3/kuhbs-integration/i3-kuhbs-launcher.py
+# Show all open VMs / their applications on all workspaces and switch to selected application / workspace
+bindsym $mod+Shift+p      exec --no-startup-id /home/user/.config/i3/kuhbs-integration/i3-kuhbs-expose.py
+# Turn on screensaver
+bindsym $mod+y            exec --no-startup-id /usr/bin/i3lock --dpms --no-unlock-indicator --ignore-empty-password --show-failed-attempts
+# Take a screenshot of a selected area
+bindsym $mod+u            exec --no-startup-id /usr/bin/gnome-screenshot --area
+# Take a screenshot of the whole screen
+bindsym $mod+Shift+u      exec --no-startup-id /usr/bin/gnome-screenshot
+
+
+
+### Commands to run at startup
+
+# Watch for Qubes GUI domains and attach their windows to i3
+exec --no-startup-id qvm-start-daemon --all --watch
+
+# Give user systemd services the live i3/X environment, then restart KUHBS i3 daemons.
+exec_always --no-startup-id /usr/bin/systemctl --user import-environment DISPLAY XAUTHORITY I3SOCK DBUS_SESSION_BUS_ADDRESS
+exec_always --no-startup-id /usr/bin/systemctl --user restart kuhbs-qvm-autopause.service
+exec_always --no-startup-id /usr/bin/systemctl --user restart kuhbs-workspace-attention.service
+
+# Start the kuhbs Polybar. Restarting i3 will replace any stale Polybar process
+exec_always --no-startup-id /usr/bin/sh -c '/usr/bin/killall --quiet polybar || true; /usr/bin/polybar --quiet main --config=~/.config/polybar/kuhbs/config.ini'
+
+# Start XFCE power management for battery, display, and sleep handling
+# TODO bugs doesnt spawn into tray bcs SESSION_MANAGER is undefined
+exec --no-startup-id /usr/bin/xfce4-power-manager --daemon
+
+# Setup display
+exec --no-startup-id /usr/bin/xrandr --output eDP-1 --mode 3840x2400 --scale 0.5x0.5
+
+# Start Qubes/XDG autostart applications for the i3 session
+exec --no-startup-id qubes-i3-xdg-autostart
+
+
+
+### KUHBS drop-in files keep optional app routing outside the main i3 config
+
+# Per-kuhb hooks write/remove ~/.config/i3/config.d/kuhbs-<kuhb>.conf files
+include ~/.config/i3/config.d/kuhbs-*.conf

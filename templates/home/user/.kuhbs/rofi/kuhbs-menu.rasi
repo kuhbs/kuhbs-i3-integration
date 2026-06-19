@@ -1,0 +1,115 @@
+* {
+    bg:             #0f0d14;
+    bg-alt:         #17131f;
+    bg-soft:        #21172e;
+    fg:             #f5f2ff;
+    muted:          #9a91aa;
+    purple:         #a855f7;
+    purple-dark:    #7c3aed;
+    purple-soft:    #2b1840;
+    alert:          #e53935;
+    alert-dark:     #b71c1c;
+
+    font: "DejaVu Sans Mono 10";
+}
+
+window {
+    width: 980px;
+    location: center;
+    anchor: north;
+    y-offset: -260px;
+    background-color: @bg;
+    border: 2px;
+    border-color: @purple-dark;
+    border-radius: 14px;
+}
+
+mainbox {
+    padding: 12px;
+    spacing: 8px;
+    background-color: @bg;
+}
+
+inputbar {
+    /* Dark rounded search box so it matches the KUHBS purple theme */
+    padding: 9px 11px;
+    spacing: 8px;
+    background-color: @bg-soft;
+    border: 1px;
+    border-color: @purple-soft;
+    border-radius: 12px;
+    children: [ entry ];
+}
+
+prompt {
+    text-color: @purple;
+    font: "DejaVu Sans Mono Bold 10";
+}
+
+entry {
+    background-color: transparent;
+    text-color: @fg;
+    placeholder: "Type to filter";
+    placeholder-color: @muted;
+}
+
+listview {
+    /* This is only the fallback row limit; the script passes a monitor-sized -lines value */
+    lines: 13;
+    columns: 1;
+
+    /* Short lists shrink, long lists grow until the script's row limit */
+    fixed-height: false;
+
+    /* Keep the menu clean; rofi can still scroll with the keyboard and mouse wheel */
+    scrollbar: false;
+
+    spacing: 3px;
+    background-color: @bg;
+}
+
+element {
+    padding: 6px 8px;
+    spacing: 14px;
+    border-radius: 8px;
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element alternate {
+    background-color: @bg-alt;
+}
+
+element normal.urgent {
+    /* alert windows get a full red rounded row, matching the workspace warning style */
+    background-color: @alert;
+    text-color: @fg;
+}
+
+element alternate.urgent {
+    /* Keep alternating urgent rows red instead of the normal stripe color */
+    background-color: @alert;
+    text-color: @fg;
+}
+
+element selected {
+    background-color: @purple-dark;
+    text-color: @fg;
+}
+
+element selected.urgent {
+    /* Keep urgent windows visibly red even when the cursor is on that row */
+    background-color: @alert-dark;
+    text-color: @fg;
+}
+
+element-icon {
+    size: 24px;
+    background-color: transparent;
+}
+
+element-text {
+    vertical-align: 0.5;
+    background-color: transparent;
+    text-color: inherit;
+}

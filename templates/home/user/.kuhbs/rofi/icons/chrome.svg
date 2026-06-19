@@ -1,0 +1,9 @@
+<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>Google Chrome</title>
+  <circle cx="12" cy="12" r="11.5" fill="#fbbc05"/>
+  <path fill="#ea4335" d="M12 12h11.5A11.5 11.5 0 0 0 2.4 5.66z"/>
+  <path fill="#34a853" d="M12 12 6.25 21.96A11.5 11.5 0 0 0 23.5 12z"/>
+  <path fill="#fbbc05" d="M12 12 2.4 5.66A11.5 11.5 0 0 0 6.25 21.96z"/>
+  <circle cx="12" cy="12" r="5.2" fill="#1a73e8"/>
+  <circle cx="12" cy="12" r="2.7" fill="#8ab4f8"/>
+</svg>

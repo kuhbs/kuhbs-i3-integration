@@ -1,0 +1,14 @@
+[Unit]
+Description=KUHBS qvm autopause
+After=graphical-session.target
+
+[Service]
+Type=simple
+# KUHBS installs its Python package into /usr/share/kuhbs, not site-packages.
+Environment=PYTHONPATH=/usr/share/kuhbs
+ExecStart=/usr/bin/python3 /home/user/.config/i3/kuhbs-integration/kuhbs-qvm-autopause.py
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

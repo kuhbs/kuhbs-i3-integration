@@ -1,0 +1,7 @@
+<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>Element</title>
+  <circle cx="12" cy="12" r="11" fill="#0dbd8b"/>
+  <circle cx="12" cy="12" r="6.2" fill="#0f3d3e"/>
+  <circle cx="12" cy="12" r="3.4" fill="#7fffd4"/>
+  <path fill="#0dbd8b" d="M11 2h2v5h-2zM11 17h2v5h-2zM2 11h5v2H2zM17 11h5v2h-5z"/>
+</svg>

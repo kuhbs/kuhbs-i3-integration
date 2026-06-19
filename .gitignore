@@ -1,0 +1,17 @@
+# Python bytecode/cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python test/type/lint caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Editor/OS scratch files
+*~
+*.swp
+*.swo
+.DS_Store
